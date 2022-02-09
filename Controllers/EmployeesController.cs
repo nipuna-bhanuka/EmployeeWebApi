@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EmployeeWebApi.Models;
 using EmployeeWebApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +13,11 @@ namespace EmployeeWebApi.Controllers
 
     public class EmployeesController : ControllerBase
     {
-        private EmployeeService _employeeService;
+        private readonly IEmployeeRepository _employeeService;
 
-        public EmployeesController()
+        public EmployeesController(IEmployeeRepository repository)
         {
-            _employeeService = new EmployeeService();
+            _employeeService = repository;
         }
 
         [HttpGet("{id?}")] //method level attribute

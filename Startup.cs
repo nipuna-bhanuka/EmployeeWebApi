@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeWebApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,10 @@ namespace EmployeeWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+       //     services.AddTransient =>  always a new object is presented
+       //     services.AddSingleton =>only one instance for application
+            services.AddScoped<IEmployeeRepository, EmployeeService>(); //New object is crested per requested
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

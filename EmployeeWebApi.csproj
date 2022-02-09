@@ -4,5 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeWebApi.Services\EmployeeWebApi.Services.csproj" />
+  </ItemGroup>
+
 
 </Project>
