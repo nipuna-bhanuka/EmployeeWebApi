@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeWebApi.Models;
+using EmployeeWebApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,19 +11,30 @@ namespace EmployeeWebApi.Controllers
 {
     [Route("api/[controller]")] //class level attribute
     [ApiController]
+
     public class EmployeesController : ControllerBase
     {
-        [HttpGet] //method level attribute
-        public IActionResult Employees()
+        private EmployeeService _employeeService;
+
+        public EmployeesController()
         {
-            var emp =new string[] { "task1", "task2", "task3" };
-            return Ok(emp);
+            _employeeService = new EmployeeService();
         }
 
-        [HttpPost]
-        public IActionResult NewEmployees()
+        [HttpGet("{id?}")] //method level attribute
+        public IActionResult GetEmployees(int? id)
         {
-            return Ok();
+            var MyEmps = _employeeService.AllEmployees();
+            if(id is null)
+            {
+                return Ok(MyEmps);
+            }
+            MyEmps = MyEmps.Where(e => e.EmployeeID == id).ToList();
+            return Ok(MyEmps);
         }
+
+
+
+        
     }
 }
